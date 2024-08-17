@@ -37,13 +37,18 @@ class Pessoas(Base):
         db_session.commit()
 
 # Tabela Atividades
-class Ativides(Base):
+class Atividades(Base):
     __tablename__='atividades' # nome da minha tabela
 
     id = Column(Integer, primary_key=True)
     name = Column(String(80))
     pessoa_id = Column(Integer, ForeignKey('pessoas.id')) # cria a chave estrangeira
     pessoa = relationship("Pessoas") # relaciona the Class Atividades with Class Pessoas
+
+    def save(self):
+        # add(self) vai adicionar o próprio objeto
+        db_session.add(self)
+        db_session.commit()
 
 # função que vai criar meu banco de dados
 def init_db():
